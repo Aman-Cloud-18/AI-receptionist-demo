@@ -1,7 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>AI Dental Receptionist Demo</title>
+  <title>AI Dental Receptionist Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      text-align:center;
+      margin-top:80px;
+      background:#f5f5f5;
+    }
+
+    h1{
+      color:#222;
+    }
+
+    button{
+      padding:15px 25px;
+      font-size:18px;
+      background:#2b7cff;
+      color:white;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      margin-top:20px;
+    }
+
+    button:hover{
+      background:#1a5ed8;
+    }
+
+    #status{
+      margin-top:20px;
+      font-size:16px;
+      color:#555;
+    }
+  </style>
+
 </head>
 
 <body>
@@ -10,16 +46,42 @@
 
 <p>Talk to our AI receptionist that books appointments automatically.</p>
 
-<button onclick="startCall()">Talk to AI Receptionist</button>
+<button id="callBtn">Talk to AI Receptionist</button>
+
+<div id="status"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@vapi-ai/web"></script>
 
 <script>
-const vapi = new Vapi("81e1fcc2-7045-4461-863f-f8eaa3553bd1");
 
-function startCall() {
-  vapi.start("229f6c0d-1f90-41c2-a91b-e3481e1de72a");
-}
+const PUBLIC_KEY = "81e1fcc2-7045-4461-863f-f8eaa3553bd1";
+const ASSISTANT_ID = "229f6c0d-1f90-41c2-a91b-e3481e1de72a";
+
+const vapi = new Vapi(PUBLIC_KEY);
+
+document.getElementById("callBtn").addEventListener("click", () => {
+
+  document.getElementById("status").innerText = "Connecting to AI receptionist...";
+
+  console.log("Starting call...");
+
+  vapi.start(ASSISTANT_ID);
+
+});
+
+vapi.on("call-start", () => {
+  document.getElementById("status").innerText = "Call started 🎤";
+});
+
+vapi.on("call-end", () => {
+  document.getElementById("status").innerText = "Call ended";
+});
+
+vapi.on("error", (error) => {
+  console.error(error);
+  document.getElementById("status").innerText = "Error starting call";
+});
+
 </script>
 
 </body>
