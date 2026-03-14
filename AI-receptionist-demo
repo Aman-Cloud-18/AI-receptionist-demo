@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Dental Receptionist Demo</title>
+</head>
+
+<body>
+
+<h1>AI Dental Receptionist</h1>
+
+<p>Talk to our AI receptionist that books appointments automatically.</p>
+
+<button onclick="startCall()">Talk to AI Receptionist</button>
+
+<script src="https://cdn.jsdelivr.net/npm/@vapi-ai/web"></script>
+
+<script>
+const vapi = new Vapi("81e1fcc2-7045-4461-863f-f8eaa3553bd1");
+
+function startCall() {
+  vapi.start("229f6c0d-1f90-41c2-a91b-e3481e1de72a");
+}
+</script>
+
+</body>
+</html>
